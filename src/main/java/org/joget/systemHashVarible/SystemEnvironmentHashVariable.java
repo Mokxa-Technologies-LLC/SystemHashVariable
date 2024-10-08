@@ -21,7 +21,7 @@ public class SystemEnvironmentHashVariable extends DefaultHashVariablePlugin{
 
     @Override
     public String getPrefix() {
-        return "sys"; 
+        return "sysVar"; 
     }
 
     @Override
@@ -31,7 +31,7 @@ public class SystemEnvironmentHashVariable extends DefaultHashVariablePlugin{
         	System.out.println("envValue----"+ envValue);
         	return envValue;
         }else{
-        	return "System Environment variable not found";
+        	return "";
         }
     }
 

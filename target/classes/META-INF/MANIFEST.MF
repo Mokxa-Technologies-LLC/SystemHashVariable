@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Bnd-LastModified: 1728373685974
+Bnd-LastModified: 1728396581292
 Build-Jdk-Spec: 11
 Bundle-Activator: org.joget.systemHashVarible.Activator
 Bundle-ManifestVersion: 2
