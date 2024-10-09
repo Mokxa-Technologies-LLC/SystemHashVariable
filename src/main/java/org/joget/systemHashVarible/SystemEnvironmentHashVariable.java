@@ -28,7 +28,6 @@ public class SystemEnvironmentHashVariable extends DefaultHashVariablePlugin{
     public String processHashVariable(String variableKey) {
         String envValue = System.getenv(variableKey);
         if(envValue != null) {
-        	System.out.println("envValue----"+ envValue);
         	return envValue;
         }else{
         	return "";
