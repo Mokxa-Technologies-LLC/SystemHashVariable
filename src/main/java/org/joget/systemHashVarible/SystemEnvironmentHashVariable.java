@@ -1,8 +1,11 @@
 package org.joget.systemHashVarible;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import org.joget.apps.app.model.DefaultHashVariablePlugin;
+import org.joget.commons.util.LogUtil;
 
-public class SystemEnvironmentHashVariable extends DefaultHashVariablePlugin{
+public class SystemEnvironmentHashVariable extends DefaultHashVariablePlugin {
 
     @Override
     public String getName() {
@@ -25,13 +28,25 @@ public class SystemEnvironmentHashVariable extends DefaultHashVariablePlugin{
     }
 
     @Override
+    public Collection<String> availableSyntax() {
+        Collection<String> syntax = new ArrayList<>();
+        syntax.add("sysVar.KEY");
+        return syntax;
+    }
+
+    @Override
     public String processHashVariable(String variableKey) {
-        String envValue = System.getenv(variableKey);
-        if(envValue != null) {
-        	return envValue;
-        }else{
-        	return "";
+        try {
+            if (variableKey != null && !variableKey.trim().isEmpty()) {
+                String envValue = System.getenv(variableKey);
+                return envValue != null ? envValue : null;
+            }
+        } catch (SecurityException e) {
+            LogUtil.error(getClassName(), e, "Security restriction prevented reading environment variable: " + variableKey);
+        } catch (Exception e) {
+            LogUtil.error(getClassName(), e, "Error processing hash variable key: " + variableKey);
         }
+        return null;
     }
 
     @Override
@@ -44,10 +59,9 @@ public class SystemEnvironmentHashVariable extends DefaultHashVariablePlugin{
         return getClass().getName();
     }
 
-	@Override
-	public String getPropertyOptions() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+    @Override
+    public String getPropertyOptions() {
+        // Hash variable plugins do not use property configuration options
+        return "";
+    }
 }
